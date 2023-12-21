@@ -3,12 +3,12 @@ terraform {
   # Partial configuration. The other settings (e.g., bucket, region) 
   # will be passed in from a file via -backend-config arguments to 
   # 'terraform init'
-  /*backend "s3" {
+  backend "s3" {
     
     key = "1st-learning-demo-site/terraform.tfstate"
 
   }
-  */
+
 
   required_providers {
 
