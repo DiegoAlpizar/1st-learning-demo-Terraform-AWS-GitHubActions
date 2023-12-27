@@ -42,7 +42,7 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform Deploy Infrastructure'
+name: 'Deploy to Production'
 
 on:
   push:
@@ -51,6 +51,11 @@ on:
 
 permissions:
   contents: read
+
+# Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+defaults:
+  run:
+    shell: bash
 
 env:
  # TF_LOG: INFO  # verbosity setting for Terraform logs
@@ -63,11 +68,6 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -97,3 +97,15 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
+
+  ansible:
+    name: Ansible
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Run Ansible playbook
+      uses: dawidd6/action-ansible-playbook@v2.6.1
+      with:
+        playbook: playbook.yml
+        
