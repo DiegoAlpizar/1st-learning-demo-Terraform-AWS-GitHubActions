@@ -104,8 +104,8 @@ jobs:
     environment: production
     
     steps:
-    - name: PWD
-      run: pwd ; ls
+    - name: Checkout
+      uses: actions/checkout@v3
     
     - name: Run Ansible playbook
       uses: dawidd6/action-ansible-playbook@v2.6.1
