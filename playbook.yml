@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+
+  tasks:
+  
+    - name: Upload files to S3
+      community.aws.s3_sync:
+        bucket: 1st-learning-demo-site
+        file_root: files/
+
