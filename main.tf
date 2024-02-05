@@ -53,3 +53,32 @@ resource "aws_s3_bucket_public_access_block" "demoWebsite" {
   restrict_public_buckets   =   false
 
 }
+
+
+data "aws_iam_policy_document" "public_read_GetObject" {
+  
+  statement {
+    
+    sid       = "Public-Read-GetObject" // Doesn't support '-' ?
+    effect    = "Allow"
+    actions   = [ "s3:GetObject" ]
+    resources = [ "${ aws_s3_bucket.demoWebsite.arn }/*" ]
+    
+    principals {
+
+      identifiers = [ "*" ]
+      type = "*"
+
+    }
+
+  }
+
+}
+
+
+resource "aws_s3_bucket_policy" "public_read_GetObject" {
+  
+  bucket = aws_s3_bucket.demoWebsite.id
+  policy = data.aws_iam_policy_document.public_read_GetObject.json
+  
+}
