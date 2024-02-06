@@ -82,3 +82,13 @@ resource "aws_s3_bucket_policy" "public_read_GetObject" {
   policy = data.aws_iam_policy_document.public_read_GetObject.json
   
 }
+
+
+resource "aws_s3_bucket_website_configuration" "static_website" {
+  
+  bucket = aws_s3_bucket.demoWebsite.id
+
+  index_document { suffix = "index.html" }
+  error_document { key    = "error.html" }
+  
+}
