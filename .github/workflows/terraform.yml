@@ -42,7 +42,7 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform Deploy Infrastructure'
+name: 'Deploy to Production'
 
 on:
   push:
@@ -97,3 +97,18 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/"master"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
+
+  ansible:
+    name: Ansible
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Run Ansible playbook
+      uses: dawidd6/action-ansible-playbook@v2.6.1
+      with:
+        playbook: playbook.yml
+        
