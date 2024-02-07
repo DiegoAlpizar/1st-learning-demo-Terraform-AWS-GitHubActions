@@ -68,7 +68,7 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
-    container: hashicorp/terraform:1.7
+    container: imjam3s/terraform-with-tar:1.7
 
     defaults:
       run:
