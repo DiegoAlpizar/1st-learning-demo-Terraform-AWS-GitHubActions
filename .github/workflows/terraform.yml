@@ -92,11 +92,6 @@ jobs:
         #  ${{ runner.os }}-prod-
         #  ${{ runner.os }}-
 
-    - name: List Terraform providers
-      if: ${{ !steps.terraform-cache.outputs.cache-hit }}
-      continue-on-error: true
-      run: terraform providers
-
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init -input=false -backend-config=.S3-Global-Terraform-State/global_terraform_state_demo.s3.tfbackend.hcl
