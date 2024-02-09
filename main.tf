@@ -92,3 +92,19 @@ resource "aws_s3_bucket_website_configuration" "static_website" {
   error_document { key    = "error.html" }
   
 }
+
+
+resource "aws_s3_bucket" "demoWebsiteRedirect" {
+  
+  bucket = "www.${ aws_s3_bucket.demoWebsite.id }.com"
+
+}
+
+
+resource "aws_s3_bucket_website_configuration" "demoWebsiteRedirect" {
+  
+  bucket = aws_s3_bucket.demoWebsiteRedirect.id
+
+  redirect_all_requests_to { host_name = aws_s3_bucket.demoWebsite.id }
+  
+}
