@@ -1,0 +1,8 @@
+.dockerignore
+Dockerfile
+.terraform
+.vscode
+.git
+**.gitignore
+*.sublime*
+*.tfstate*
